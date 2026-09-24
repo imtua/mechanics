@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: ui-monospace, "SF Mono", "Liberation Mono", Menlo, Consolas, monospace;
+}
+
+body:not(.home-body) {
+    overflow: hidden;
+}
+
+#energy-label {
+    position: absolute;
+    top: 0.5em;
+    left: 1em;
+}
+
+#equation-label {
+    position: absolute;
+    top: 0;
+    right: 1em;
+}
+
+#symbol-container svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#simulation-label {
+    position: absolute;
+    bottom: 0.5em;
+    right: 1em;
+    font-size: 2em;
+}
+
+#system-modal {
+    position: absolute;
+    display: none;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition-property: display;
+    transition-duration: 0.5s;
+    transition-behavior: allow-discrete;
+}
+
+#system-modal.shown {
+    display: flex;
+}
+
+#system-modal-content {
+    margin: 0 auto;
+    overflow: auto;
+    background-color: #ffffff;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    font-size: 1.25em;
+    max-height: 80vh;
+}

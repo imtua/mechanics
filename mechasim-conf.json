@@ -1,0 +1,13 @@
+{
+    "packages": [
+        "ulab",
+        "collections"
+    ],
+    "files": {
+        "runner.py": "",
+        "mechasim/__init__.py": "mechasim/",
+        "mechasim/deriv.py": "mechasim/",
+        "mechasim/engine.py": "mechasim/",
+        "mechasim/system.py": "mechasim/"
+    }
+}
