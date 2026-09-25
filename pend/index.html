@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <script src="../mechasim.js"></script>
+    <script>
+        mechasim.title = "Simple Pendulum";
+        mechasim.symbols.names = ["t", "l", "m"];
+        mechasim.symbols.latex = ["\\theta", "l", "m"];
+
+        function drawSystem(params) {
+            const theta = params[0];
+            const l = 200;
+
+            resetCanvas();
+            ctx.translate(0, -l / 4);
+            drawAxis(50);
+            drawAngle(-theta, 35);
+            moveLabel("t", 20, -10);
+            ctx.rotate(-theta);
+            drawBar(l);
+            drawHinge();
+            moveLabel("l", 15, l / 2);
+            ctx.translate(0, l);
+            ctx.rotate(theta);
+
+            drawMass();
+            moveLabel("m", -30, 0);
+        }
+    </script>
+</body>
+
+</html>
