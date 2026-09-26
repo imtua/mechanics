@@ -15,6 +15,43 @@ body:not(.home-body) {
     left: 1em;
 }
 
+#modal-toggle {
+    position: absolute;
+    top: 2em;
+    left: 0.5em;
+}
+
+#energy-bar {
+    position: absolute;
+    top: 20%;
+    bottom: 3%;
+    left: 1.5em;
+    width: 1.5em;
+    border: 2px solid black;
+    background-color: #AAA;
+}
+
+#kinetic-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #EEE;
+}
+
+#energy-bar-label {
+    position: absolute;
+    top: calc(20% - 1.75em);
+    left: 0.75em;
+}
+
+.color-label {
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    border: 2px solid black;
+    vertical-align: -0.1em;
+}
+
 #equation-label {
     position: absolute;
     top: 0;
@@ -32,6 +69,20 @@ body:not(.home-body) {
     bottom: 0.5em;
     right: 1em;
     font-size: 2em;
+}
+
+#playback-container {
+    position: absolute;
+    right: 1em;
+    bottom: 3.5em;
+    display: flex;
+    gap: 0.5em;
+}
+
+.playback-button {
+    width: 1.5em;
+    height: 1.5em;
+    cursor: pointer;
 }
 
 #system-modal {

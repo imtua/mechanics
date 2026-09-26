@@ -191,7 +191,7 @@ function drawAxis(length) {
 }
 
 function drawAngle(angle, radius) {
-    angle = (angle = Math.PI) % (2 * Math.PI) - Math.PI;
+    angle = angle % (2 * Math.PI) - Math.PI;
     if (angle < -Math.PI) {
         angle += 2 * Math.PI;
     }
