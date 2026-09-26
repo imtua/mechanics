@@ -29,6 +29,19 @@ const modalToggle = document.createElement("button");
 modalToggle.id = "modal-toggle";
 modalToggle.innerHTML = "Show/Hide system file.";
 
+const descriptionModal = document.createElement("div");
+descriptionModal.id = "description-modal";
+descriptionModal.innerHTML = `
+<div id="description-modal-content" class="fade-in">
+    <span>Description:</span>
+    <div id="description-file"></div>
+</div>
+`;
+
+const descriptionToggle = document.createElement("button");
+descriptionToggle.id = "description-toggle";
+descriptionToggle.innerHTML = "Description";
+
 const energyBar = document.createElement("div");
 energyBar.id = "energy-bar";
 const kineticBar = document.createElement("div");
@@ -60,6 +73,8 @@ document.body.prepend(
     simulationLabel,
     systemModal,
     modalToggle,
+    descriptionModal,
+    descriptionToggle,
     energyBar,
     energyBarLabel,
     playbackContainer
@@ -81,6 +96,23 @@ systemModal.addEventListener("click", () => {
     }
 });
 modalToggle.addEventListener("click", modalHandler);
+
+const descriptionFile = document.getElementById("description-file");
+fetch("description.md")
+    .then((r) => r.text())
+    .then((text) => { descriptionFile.textContent = text; });
+
+const descriptionModalContent = document.getElementById("description-modal-content");
+const descriptionModalHandler = () => {
+    descriptionModal.classList.toggle("shown");
+    descriptionModalContent.classList.toggle("shown");
+}
+descriptionModal.addEventListener("click", () => {
+    if (!descriptionModalContent.matches(":hover")) {
+        descriptionModalHandler();
+    }
+});
+descriptionToggle.addEventListener("click", descriptionModalHandler);
 
 const systemScript = document.createElement("script");
 systemScript.type = "mpy";
