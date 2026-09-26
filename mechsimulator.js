@@ -44,9 +44,9 @@ Potential
 const playbackContainer = document.createElement("div");
 playbackContainer.id = "playback-container";
 playbackContainer.innerHTML = `
-<img src="icons/reset.svg" class="playback-button">
-<img src="icons/pause.svg" class="playback-button">
-<img src="icons/step.svg" class="playback-button">
+<img src="../icons/reset.svg" class="playback-button">
+<img src="../icons/pause.svg" class="playback-button">
+<img src="../icons/step.svg" class="playback-button">
 `;
 
 document.body.prepend(

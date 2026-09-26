@@ -4,10 +4,10 @@
         "collections"
     ],
     "files": {
-        "runner.py": "",
-        "mechasim/__init__.py": "mechasim/",
-        "mechasim/deriv.py": "mechasim/",
-        "mechasim/engine.py": "mechasim/",
-        "mechasim/system.py": "mechasim/"
+        "../runner.py": "runner.py",
+        "../mechmaths/__init__.py": "mechmaths/",
+        "../mechmaths/deriv.py": "mechmaths/",
+        "../mechmaths/engine.py": "mechmaths/",
+        "../mechmaths/system.py": "mechmaths/"
     }
 }
