@@ -249,6 +249,7 @@ function moveLabel(name, x, y) {
         let x2 = "calc(" + canvasPoint.x + "px - 50%";
         let y2 = "calc(" + canvasPoint.y + "px - 50% ";
         mechasimulator.symbols[name].style.transform = "translate(" + x2 + "," + y2 + ")";
+        mechasimulator.symbols[name].style.visibility = "visible";
     }
 }
 
