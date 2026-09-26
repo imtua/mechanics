@@ -5,7 +5,7 @@
     ],
     "files": {
         "../runner.py": "runner.py",
-        "../mechmaths/__init__.py": "mechmaths/",
+        "../mechmaths/init.py": "mechmaths/__init__.py",
         "../mechmaths/deriv.py": "mechmaths/",
         "../mechmaths/engine.py": "mechmaths/",
         "../mechmaths/system.py": "mechmaths/"
