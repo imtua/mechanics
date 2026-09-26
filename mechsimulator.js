@@ -89,7 +89,7 @@ MathJax = {
     svg: { blacker: 5 }
 };
 
-let mechasim = {
+let mechasimulator = {
     title: "",
     symbols: {
         names: [],
@@ -98,22 +98,22 @@ let mechasim = {
 }
 
 window.addEventListener("load", () => {
-    document.title = "Mechasim: " + mechasim.title;
-    simulationLabel.innerHTML = mechasim.title;
+    document.title = "Mechasimulator: " + mechasimulator.title;
+    simulationLabel.innerHTML = mechasimulator.title;
 });
 
 MathJax.startup = {
     ready() {
         MathJax.startup.defaultReady();
         MathJax.startup.promise.then(() => {
-            for (const symbol of mechasim.symbols.latex) {
+            for (const symbol of mechasimulator.symbols.latex) {
                 symbolContainer.textContent += "\\(" + symbol + "\\) ";
             }
             MathJax.typesetPromise([symbolContainer]).then(() => {
                 const svgs = symbolContainer.querySelectorAll("svg");
                 for (let i = 0; i < svgs.length; i++) {
                     let container = svgs[i].parentElement;
-                    mechasim.symbols[mechasim.symbols.names[i]] = svgs[i];
+                    mechasimulator.symbols[mechasimulator.symbols.names[i]] = svgs[i];
                     symbolContainer.appendChild(svgs[i]);
                     container.remove();
                     svgs[i].style.removeProperty("vertical-align");
@@ -228,11 +228,11 @@ function getWorld(x, y) {
 }
 
 function moveLabel(name, x, y) {
-    if (mechasim.symbols[name] != null) {
+    if (mechasimulator.symbols[name] != null) {
         let canvasPoint = getWorld(x, y);
         let x2 = "calc(" + canvasPoint.x + "px - 50%";
         let y2 = "calc(" + canvasPoint.y + "px - 50% ";
-        mechasim.symbols[name].style.transform = "translate(" + x2 + "," + y2 + ")";
+        mechasimulator.symbols[name].style.transform = "translate(" + x2 + "," + y2 + ")";
     }
 }
 
