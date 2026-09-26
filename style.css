@@ -17,8 +17,9 @@ body:not(.home-body) {
 
 #metrics-label {
     position: absolute;
-    top: 4em;
+    top: 50%;
     right: 1em;
+    transform: translateY(-50%);
     line-height: 1.5;
     text-align: right;
 }
