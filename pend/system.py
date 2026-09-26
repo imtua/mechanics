@@ -1,5 +1,5 @@
-from mechsim import Expression, Var, Solver
-from mechsim.system import Mass, Vector, System
+from mechmaths import Expression, Var, Solver
+from mechmaths.system import Mass, Vector, System
 
 Expression.context = ["theta"]
 mass = Mass("m")
