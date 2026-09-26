@@ -191,9 +191,11 @@ function drawAxis(length) {
 }
 
 function drawAngle(angle, radius) {
-    angle = angle % (2 * Math.PI) - Math.PI;
+    angle %= 2 * Math.PI;
     if (angle < -Math.PI) {
         angle += 2 * Math.PI;
+    } else if (angle > Math.PI) {
+        angle -= 2 * Math.PI;
     }
     ctx.setLineDash([2.5, 2.5]);
     ctx.beginPath();
