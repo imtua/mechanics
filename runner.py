@@ -25,7 +25,13 @@ def update(timestamp):
 
 
 def update_screen():
-    window.drawSystem(ffi.to_js(main_solver.get_params()))
+    params = main_solver.get_params()
+    window.drawSystem(ffi.to_js(params))
+    window.setMetrics(
+        main_solver.time,
+        ffi.to_js(params),
+        ffi.to_js(main_solver.phase[1].tolist())
+    )
     t, v = main_solver.get_energies()
     window.setEnergyLabel(t, v)
 

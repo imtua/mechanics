@@ -15,6 +15,14 @@ body:not(.home-body) {
     left: 1em;
 }
 
+#metrics-label {
+    position: absolute;
+    top: 4em;
+    right: 1em;
+    line-height: 1.5;
+    text-align: right;
+}
+
 #modal-toggle {
     position: absolute;
     top: 2em;

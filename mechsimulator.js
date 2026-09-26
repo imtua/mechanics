@@ -5,6 +5,8 @@ ctx.lineCap = "round";
 
 const energyLabel = document.createElement("div");
 energyLabel.id = "energy-label";
+const metricsLabel = document.createElement("div");
+metricsLabel.id = "metrics-label";
 const symbolContainer = document.createElement("div");
 symbolContainer.id = "symbol-container";
 symbolContainer.classList.add("fade-in");
@@ -52,6 +54,7 @@ playbackContainer.innerHTML = `
 document.body.prepend(
     canvas,
     energyLabel,
+    metricsLabel,
     symbolContainer,
     equationLabel,
     simulationLabel,
@@ -137,6 +140,17 @@ function setEnergyLabel(kinetic, potential) {
     const tv = (kinetic + potential).toFixed(2);
     energyLabel.textContent = `Kinetic: ${t} | Potential: ${v} | Total: ${tv}`;
     kineticBar.style.height = (t / tv * 100) + "%";
+}
+
+function setMetrics(time, angles, velocities) {
+    const angleNames = mechasimulator.symbols.names.filter((name) => name.startsWith("t"));
+    metricsLabel.innerHTML = `<div>Time: ${time.toFixed(2)} s</div>`;
+    for (let i = 0; i < angles.length; i++) {
+        const suffix = angleNames[i]?.slice(1) || "";
+        const label = suffix ? `θ${suffix}` : "θ";
+        metricsLabel.innerHTML += `<div>${label}: ${angles[i].toFixed(2)} rad</div>`;
+        metricsLabel.innerHTML += `<div>ω${suffix}: ${velocities[i].toFixed(2)} rad/s</div>`;
+    }
 }
 
 function setPlaybackButtons(reset, toggle, step) {
