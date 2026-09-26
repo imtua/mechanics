@@ -82,7 +82,7 @@ modalToggle.addEventListener("click", modalHandler);
 const systemScript = document.createElement("script");
 systemScript.type = "mpy";
 systemScript.src = "system.py";
-systemScript.setAttribute("config", "../mechsimulator-conf.json");
+systemScript.setAttribute("config", "../mechsimulator-conf.json?v=2");
 document.body.append(systemScript);
 
 MathJax = {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechsimulator.title = "Double Pendulum";
+        mechsimulator.symbols.names = ["t1", "l1", "m1", "t2", "l2", "m2"];
+        mechsimulator.symbols.latex = ["\\theta_1", "l_1", "m_1", "\\theta_2", "l_2", "m_2"];
+
+        function drawSystem(params) {
+            const theta1 = params[0];
+            const theta2 = params[1];
+            const l_1 = 150;
+            const l_2 = 100;
+            resetCanvas();
+
+            ctx.translate(0, -l_1 / 2);
+            drawAxis(50);
+            drawAngle(-theta1, 35);
+            moveLabel("t1", 20, -10);
+            ctx.rotate(-theta1);
+            drawBar(l_1);
+            drawHinge();
+            moveLabel("l1", 15, l_1 / 2);
+            ctx.translate(0, l_1);
+            ctx.rotate(theta1);
+
+            drawMass();
+            moveLabel("m1", -30, 0);
+
+            drawAxis(50);
+            drawAngle(-theta2, 35);
+            moveLabel("t2", 30, -10);
+            ctx.rotate(-theta2);
+            drawBar(l_2);
+            drawHinge();
+            moveLabel("l2", 15, l_2 / 2);
+            ctx.translate(0, l_2);
+            ctx.rotate(theta2);
+
+            drawMass();
+            moveLabel("m2", -30, 0);
+        }
+    </script>
+</body>
+
+</html>
