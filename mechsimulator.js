@@ -3,7 +3,7 @@ canvas.id = "canvas";
 const ctx = canvas.getContext("2d");
 ctx.lineCap = "round";
 
-const energyLabel = document.createAttribute("div");
+const energyLabel = document.createElement("div");
 energyLabel.id = "energy-label";
 const symbolContainer = document.createElement("div");
 symbolContainer.id = "symbol-container";
@@ -17,7 +17,7 @@ simulationLabel.id = "simulation-label";
 const systemModal = document.createElement("div");
 systemModal.id = "system-modal";
 systemModal.innerHTML = `
-<div id="system-modal-content"> class="fade-in">
+<div id="system-modal-content" class="fade-in">
     <span>Contents of <code>system.py</code>:</span>
     <div id="system-file"></div>
 </div>
@@ -67,7 +67,7 @@ fetch("system.py")
     .then((r) => r.text())
     .then((text) => { systemFile.innerHTML = text; });
 
-const systemModalContent = document.getELementById("system-modal-content");
+const systemModalContent = document.getElementById("system-modal-content");
 const modalHandler = () => {
     systemModal.classList.toggle("shown");
     systemModalContent.classList.toggle("shown");
@@ -82,7 +82,7 @@ modalToggle.addEventListener("click", modalHandler);
 const systemScript = document.createElement("script");
 systemScript.type = "mpy";
 systemScript.src = "system.py";
-systemScript.setAttribute("config", "../mechasim-conf.json");
+systemScript.setAttribute("config", "../mechsimulator-conf.json");
 document.body.append(systemScript);
 
 MathJax = {
@@ -135,7 +135,7 @@ function setEnergyLabel(kinetic, potential) {
     const t = kinetic.toFixed(2);
     const v = potential.toFixed(2);
     const tv = (kinetic + potential).toFixed(2);
-    energyLabel.textContent = "Kinetic: ${t} | Potential: ${v} | Total: ${tv}";
+    energyLabel.textContent = `Kinetic: ${t} | Potential: ${v} | Total: ${tv}`;
     kineticBar.style.height = (t / tv * 100) + "%";
 }
 
