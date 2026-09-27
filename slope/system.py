@@ -8,7 +8,7 @@ disk.constrain_plane("x", Vector(2, -1))
 system = System(disk)
 solver = Solver(system.kinetic(), system.potential())
 solver.load_constants({
-    "m": 1, "I": 1, "g": 10
+    "m": 1, "I": 1, "r": 1, "g": 10
 })
 
 if __name__ == "__main__":
