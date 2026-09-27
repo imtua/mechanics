@@ -9,6 +9,24 @@
     padding: 2rem 1rem 4rem;
 }
 
+.site-attribution {
+    position: fixed;
+    right: 1em;
+    bottom: 0.5em;
+}
+
+.mechmath-link {
+    position: fixed;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25em 0.5em;
+    border: 2px solid black;
+    color: inherit;
+    background-color: white;
+    text-decoration: none;
+}
+
 .options-header {
     text-align: center;
     font-size: 3em;
@@ -99,5 +117,10 @@
 @media (max-width: 600px) {
     .grid-container {
         grid-template-columns: 1fr;
+    }
+
+    .site-attribution {
+        bottom: 3em;
+        font-size: 0.8em;
     }
 }

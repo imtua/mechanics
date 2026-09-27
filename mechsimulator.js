@@ -16,6 +16,15 @@ equationLabel.classList.add("fade-in");
 const simulationLabel = document.createElement("div");
 simulationLabel.id = "simulation-label";
 
+const attributionLabel = document.createElement("div");
+attributionLabel.id = "attribution-label";
+attributionLabel.innerHTML = `Open sourced, made by <a href="https://github.com/imtua"><b>Imtiaz Ahamed</b></a>`;
+
+const mechmathLink = document.createElement("a");
+mechmathLink.id = "mechmath-link";
+mechmathLink.href = "https://mechanics.help/mechmaths";
+mechmathLink.textContent = "Learn how mechmath works";
+
 const systemModal = document.createElement("div");
 systemModal.id = "system-modal";
 systemModal.innerHTML = `
@@ -71,6 +80,8 @@ document.body.prepend(
     symbolContainer,
     equationLabel,
     simulationLabel,
+    attributionLabel,
+    mechmathLink,
     systemModal,
     modalToggle,
     descriptionModal,

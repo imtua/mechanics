@@ -82,9 +82,27 @@ body:not(.home-body) {
 
 #simulation-label {
     position: absolute;
-    bottom: 0.5em;
+    bottom: 2.5em;
     right: 1em;
     font-size: 2em;
+}
+
+#attribution-label {
+    position: absolute;
+    right: 1em;
+    bottom: 0.5em;
+}
+
+#mechmath-link {
+    position: absolute;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25em 0.5em;
+    border: 2px solid black;
+    color: inherit;
+    background-color: white;
+    text-decoration: none;
 }
 
 #playback-container {
