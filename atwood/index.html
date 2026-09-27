@@ -10,7 +10,43 @@
 </head>
 
 <body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Swinging Atwood Machine";
+        mechasimulator.symbols.names = ["m", "M", "r"];
+        mechasimulator.symbols.latex = ["m", "M", "r"];
 
+        function drawSystem(params) {
+            const scale = 150;
+            const r = params[0];
+            const theta = params[1];
+
+            resetCanvas();
+            ctx.translate(-0.5 * scale, -0.5 * scale);
+            ctx.translate(0, (2 - r) * scale);
+            drawMass();
+            moveLabel("M", -25, 25);
+            ctx.rotate(Math.PI);
+            drawAxis((2 - r) * scale);
+            ctx.rotate(-Math.PI);
+            ctx.translate(0, -(2 - r) * scale);
+
+            ctx.translate(10, 0);
+            ctx.rotate(r * scale / 10);
+            drawDisk(10);
+            ctx.rotate(-r * scale / 10);
+
+            ctx.rotate(-theta);
+            ctx.translate(10, r * scale);
+            moveLabel("r", 15, -r * scale / 2);
+            drawMass();
+            ctx.rotate(Math.PI);
+            drawAxis(r * scale);
+            ctx.rotate(-Math.PI);
+            ctx.rotate(theta);
+            moveLabel("m", 20, 20);
+        }
+    </script>
 </body>
 
 </html>
