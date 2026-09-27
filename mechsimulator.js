@@ -133,7 +133,7 @@ let mechasimulator = {
 }
 
 window.addEventListener("load", () => {
-    document.title = "Mechasimulator: " + mechasimulator.title;
+    document.title = "Mechanics: " + mechasimulator.title;
     simulationLabel.innerHTML = mechasimulator.title;
 });
 
