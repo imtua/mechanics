@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Rolling Disk Pendulum";
+        mechasimulator.symbols.names = ["mr", "r", "mp", "wp", "lp", "k", "m", "ro", "ri", "x"];
+        mechasimulator.symbols.latex = ["m_r", "r", "m_p", "w_p", "l_p", "k", "M", "R_o", "R_i", "x"];
+
+        function drawSystem(params) {
+            const scale = 600;
+            const x = params[0] * scale;
+            const theta1 = params[1];
+            const theta2 = params[2];
+            let spring1 = {};
+            let spring2 = {};
+            let spring3 = {};
+
+            const r_o = 0.3 * scale;
+            const r_i = 0.2 * scale;
+            const r = 0.075 * scale;
+            const w_p = 0.1 * scale;
+            const l_p = 0.3 * scale;
+            const d_s = 0.4 * scale;
+            const theta_s = Math.PI * (3 / 8);
+
+            resetCanvas();
+            ctx.translate(0, r_o / 2);
+            drawPlane();
+            spring1.start = getWorld(-d_s, 0);
+            spring2.start = getWorld(d_s, 0);
+            ctx.translate(0, -r_o);
+
+            ctx.translate(x, 0);
+            ctx.rotate(x / r_o);
+            spring3.start = getWorld(0, (r_o + r_i) / 2);
+
+            ctx.setLineDash([]);
+            ctx.lineWidth = 3;
+            ctx.fillStyle = "#CCC";
+
+            ctx.beginPath();
+            ctx.arc(0, 0, r_i, 0, Math.PI);
+            ctx.lineTo(-r_o, 0);
+            ctx.arc(0, 0, r_o, -Math.PI, 0, true);
+            ctx.lineTo(r_i, 0);
+            ctx.fill();
+            ctx.stroke();
+
+            drawAxis(r_o);
+            ctx.rotate(theta_s);
+            spring1.end = getWorld(0, r_o);
+            ctx.rotate(-2 * theta_s);
+            drawAxis(r_o);
+            spring2.end = getWorld(0, r_o);
+            ctx.rotate(theta_s);
+
+            ctx.rotate(Math.PI / 4);
+            drawBar(r_i, 1);
+            moveLabel("ri", 15, r_i / 2);
+            ctx.rotate(Math.PI / 12);
+            drawBar(r_o, 1);
+            moveLabel("ro", -15, r_o / 2);
+            ctx.rotate(-Math.PI / 3);
+
+            ctx.translate((r_o + r_i) / 2, 0);
+            moveLabel("m", 40, -40);
+            ctx.rotate(-0.77 * Math.PI);
+            drawBar(40, 1);
+            ctx.rotate(0.77 * Math.PI);
+            ctx.translate(-(r_o + r_i) / 2, 0);
+
+            ctx.translate(0, 0.56 * r_o);
+            ctx.rotate(-x / r_o);
+            ctx.rotate(Math.PI);
+            drawAxis(0.56 * r_o);
+            ctx.rotate(Math.PI);
+            ctx.rotate(x / r_o);
+            drawHinge();
+            ctx.translate(0, -0.56 * r_o);
+            ctx.rotate(-x / r_o);
+
+            ctx.translate(0, r_o);
+            drawCircle(3, "black", 0);
+            moveLabel("x", -x / 2, 15);
+            ctx.translate(0, 20);
+            drawBar(10, 1);
+            ctx.translate(-x, 0);
+            drawBar(10, 1);
+            ctx.translate(x, 5);
+            ctx.rotate(Math.PI / 2);
+            drawBar(x, 1);
+            ctx.rotate(-Math.PI / 2);
+            ctx.translate(0, -25);
+            ctx.translate(0, -r_o);
+
+            ctx.rotate(-theta1);
+            ctx.translate(0, r_i - r);
+            spring3.end = getWorld(0, 0);
+            ctx.rotate(theta1);
+
+            moveLabel("mr", r * 1.5, -r * 1.5);
+            ctx.rotate(-0.77 * Math.PI);
+            drawBar(r * 1.8, 1);
+            ctx.rotate(0.77 * Math.PI)
+
+            ctx.rotate(x / r_o + (theta1 + x / r_o) * (r_i - r) / r);
+            drawDisk(r, "#CCC");
+            moveLabel("r", r / 2, -10);
+            ctx.rotate(-x / r_o - (theta1 + x / r_o) * (r_i - r) / r);
+
+            ctx.rotate(-theta2);
+            drawBar(l_p);
+            moveLabel("lp", 15, l_p / 2);
+            drawHinge();
+            ctx.translate(0, l_p);
+            ctx.rotate(Math.PI / 2);
+            moveLabel("wp", -25, 15);
+            ctx.translate(0, -w_p / 2);
+            drawBar(w_p);
+            drawMass();
+            moveLabel("mp", 25, -25);
+            ctx.translate(0, w_p);
+            drawMass();
+
+            ctx.resetTransform();
+            drawSpring(spring1, true);
+            drawSpring(spring2, true);
+            drawSpring(spring3, true);
+
+            let spring_x = spring1.end.x - spring1.start.x;
+            let spring_y = spring1.end.y - spring1.start.y;
+            let length = Math.sqrt(spring_x ** 2 + spring_y ** 2);
+            spring_x /= length;
+            spring_y /= length;
+            let mid_x = (spring1.start.x + spring1.end.x) / 2;
+            let mid_y = (spring1.start.y + spring1.end.y) / 2;
+            moveLabel("k", mid_x + 15 * spring_y, mid_y - 15 * spring_x);
+        }
+    </script>
+</body>
+
+</html>
