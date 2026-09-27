@@ -83,5 +83,5 @@ def load_solver(solver, initial, custom_steps=None, render_equations=True):
             ffi.to_js(toggle_playback),
             ffi.to_js(step_playback)
         )
-        solver.load_initial_values(initial)
-        request_update()
+    solver.load_initial_values(initial)
+    request_update()
