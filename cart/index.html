@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+    <link rel="icon" type="image/svg+xml" href="simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechsimulator.title = "Cart and Pendulum";
+        mechsimulator.symbols.names = ["x", "t", "k", "M", "m", "l"];
+        mechsimulator.symbols.latex = ["x", "\\theta", "k", "M", "m", "l"];
+
+        function drawSystem(params) {
+            const x = params[0];
+            const theta = params[1];
+            const scale = 200;
+            const l = 1;
+            const d = 1.5;
+
+            resetCanvas();
+            ctx.translate(0, -0.5 * scale);
+            drawPlane();
+
+            ctx.translate(x * scale, -0.1 * scale);
+            ctx.strokeRect(0, -0.1 * scale, 0.6 * scale, 0.2 * scale);
+            drawSpring({ start: { x: (-d - x) * scale, y: 0 }, end: { x: 0, y: 0 } });
+            moveLabel("k", 0.5 * (-d - x) * scale, -15);
+            moveLabel("M", 0.5 * scale, -0.1 * scale - 15);
+
+            ctx.translate(0.3 * scale, 0);
+
+            moveLabel("x", -0.5 * x * scale, -20)
+            ctx, translate(0, -55);
+            drawBar(10, 1);
+            ctx.translate(-x * scale, 0);
+            drawBar(10, 1);
+            ctx.translate(x * scale, 5);
+            ctx.rotate(Math.PI / 2);
+            drawBar(x * scale, 1);
+            ctx.rotate(-Math.PI / 2);
+            ctx.translate(0, 50);
+
+            drawAxis(70);
+            drawAngle(-theta, 50);
+            moveLabel("t", 20, 10);
+            ctx.rotate(-theta);
+            drawBar(l * scale);
+            drawHinge();
+            moveLabel("l", 15, 0.5 * l * scale);
+
+            ctx.translate(0, l * scale);
+            drawMass();
+            moveLabel("m", -20, 20);
+        }
+    </script>
+</body>
+
+</html>
