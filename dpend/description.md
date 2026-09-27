@@ -1,0 +1,1 @@
+A browser-based double pendulum simulator built with PyScript and the "Mechmaths" physics engine. Two hinged masses (m1, m2) are chained together, each with its own angle and length, and their coupled motion is derived symbolically from total kinetic and potential energy. Canvas rendering shows both arms, hinges, and angles θ1, θ2 live.

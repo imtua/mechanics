@@ -1,0 +1,1 @@
+A browser-based simulator of a Cart and Pendulum mechanism system, built with PyScript and the "Mechmaths" engine. A spring-coupled cart (mass M) slides on a horizontal plane while a pendulum (mass m, length l) swings from a hinge on the cart. Kinetic and potential energies are derived symbolically and solved for coupled, oscillating motion.

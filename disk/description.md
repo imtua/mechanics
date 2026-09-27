@@ -1,0 +1,1 @@
+A complex spring-coupled rolling system built with PyScript and "Mechmaths". A rocking annular ring (M) rolls on a plane, tethered by two springs, while an inner disk (m_r) rolls along its rim and a hinged bigilar mass pair (m_p) swings below. Energies are derived symbolically, coupling multiple constrained rigid bodies into one animated simulation.

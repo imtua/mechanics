@@ -1,0 +1,1 @@
+A browser-based simulator of a disk rolling on an inclined slope, built with PyScript and the "Mechmaths" engine. A rigid desk (mass m, moment of inertia I, radius r) is constrained to roll along a plane, its rotation coupled to translation. Kinetic and potential energy are derived symbolically and solved to animate rolling motion under gravity.

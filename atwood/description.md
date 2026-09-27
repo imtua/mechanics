@@ -1,0 +1,1 @@
+A browser-based simulator of the Swinging Atwood Machine, built with PyScript and the "Mechmaths" engine. Mass M slides vertically while mass m swings on a variable-length cord r over a pulley, coupling radial and angular motion. Energies are derived symbolically, then solved to animate the chaotic dynamics live.
