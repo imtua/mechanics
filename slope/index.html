@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechsimulator.title = "Disk on Slope";
+        mechsimulator.symbols.names = ["m", "r"];
+        mechsimulator.symbols.latex = ["m", "r"];
+
+        function drawSystem(params) {
+            const scale = 100;
+            const x = params[0] + 5;
+            const r = 1;
+
+            resetCanvas();
+            ctx.rotate(Math.atan2(1, 2));
+            ctx.translate(0, r * scale);
+            drawPlane();
+            ctx.translate(x * scale, -r * scale);
+            ctx.rotate(x / r);
+            drawDisk(scale);
+            moveLabel("m", -15, -15);
+            moveLabel("r", r / 2 * scale, -15);
+        }
+    </script>
+</body>
+
+</html>
