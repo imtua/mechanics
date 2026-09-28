@@ -7,15 +7,15 @@
 The homepage has button with images to help understand users, links to each of the system simulator pages. Each page has an energy-label and diagram, playback buttons and sometimes system equations. Mechanism metrics are present there in the right middle side. The Rolling Disk Pendulum has equations of motion too complex to display on the screen. There is also a button to view the Python system file that creates the solver. Another button, description, present there to make understand users with simple text. Under every page, there's a button says "Learn how mechmaths work", press into that button and you'll know how MechMaths, my own custom library works. The page runs best on a landscape desktop orientation.
 
 Check out these links to find out
-- <a href="mechanics.help"><b>Mechanics Homepage</b></a>
-- <a href="mechanics.help/pend/"><b>Single Pendulum</b></a>
-- <a href="mechanics.help/dpend/"><b>Double Pendulum</b></a>
-- <a href="mechanics.help/atwood/"><b> Swinging Atwood Machine</b></a>
-- <a href="mechanics.help/cart/"><b>Cart and Pendulum</b></a>
-- <a href="mechanics.help/slope/"><b>Disk on Slope</b></a>
-- <a href="mechanics.help/disk/"><b>Rolling Disk Pendulum</b></a>
-- <a href="mechanics.help/elastic/"><b>Elastic Pendulum</b></a>
-- <a href="mechanics.help/mechmaths/"><b>Learn how mechmaths work</b></a>
+- <a href="https://mechanics.help"><b>Mechanics Homepage</b></a>
+- <a href="https://mechanics.help/pend/"><b>Single Pendulum</b></a>
+- <a href="https://mechanics.help/dpend/"><b>Double Pendulum</b></a>
+- <a href="https://mechanics.help/atwood/"><b> Swinging Atwood Machine</b></a>
+- <a href="https://mechanics.help/cart/"><b>Cart and Pendulum</b></a>
+- <a href="https://mechanics.help/slope/"><b>Disk on Slope</b></a>
+- <a href="https://mechanics.help/disk/"><b>Rolling Disk Pendulum</b></a>
+- <a href="https://mechanics.help/elastic/"><b>Elastic Pendulum</b></a>
+- <a href="https://mechanics.help/mechmaths/"><b>Learn how mechmaths work</b></a>
 
 
 # Code Structure
