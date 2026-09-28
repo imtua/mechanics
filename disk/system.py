@@ -26,15 +26,26 @@ spring3 = Spring(ring.local(Vector(0, -midrim)),
 
 system = System(ring, disk, mass1, mass2, spring1, spring2, spring3)
 solver = Solver(system.kinetic(), system.potential())
-solver.load_constants({
+constants = {
     "M": 12, "I_m": 1, "R_o": 0.32,
     "m_r": 2, "I_r": 0.02, "r": 0.08, "R_i": 0.22,
     "m_p": 0.8, "w_p": 0.1, "l_p": 0.3,
     "g": 9.81,
     "k": 400, "d_s": 0.4, "theta_s": math.pi * (3 / 8), "l1": 0.3,
     "k2": 400, "l2": 0.20
-})
+}
+solver.load_constants(constants)
+parameters = [
+    {"name": "M", "label": "Ring mass (kg)", "min": 0.1, "max": 50, "step": 0.1},
+    {"name": "m_r", "label": "Inner disk mass (kg)", "min": 0.1, "max": 20, "step": 0.1},
+    {"name": "m_p", "label": "Pendulum mass (kg)", "min": 0.1, "max": 20, "step": 0.1},
+    {"name": "g", "label": "Gravity (m/s²)", "min": 0.1, "max": 30, "step": 0.1},
+    {"name": "k", "label": "Outer spring stiffness", "min": 1, "max": 1000, "step": 1},
+    {"name": "k2", "label": "Inner spring stiffness", "min": 1, "max": 1000, "step": 1},
+]
 
 if __name__ == "__main__":
-    from runner import load_solver
-    load_solver(solver, [0.1, 0, 0], 2, False)
+    from simulation_runner import load_solver
+    load_solver(
+        solver, [0.1, 0, 0], 2, False, constants, parameters
+    )

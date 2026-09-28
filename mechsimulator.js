@@ -51,6 +51,14 @@ const descriptionToggle = document.createElement("button");
 descriptionToggle.id = "description-toggle";
 descriptionToggle.innerHTML = "Description";
 
+const parametersToggle = document.createElement("button");
+parametersToggle.id = "parameters-toggle";
+parametersToggle.innerHTML = "Parameters";
+
+const parametersPanel = document.createElement("div");
+parametersPanel.id = "parameters-panel";
+parametersPanel.innerHTML = "<strong>Simulation parameters</strong>";
+
 const energyBar = document.createElement("div");
 energyBar.id = "energy-bar";
 const kineticBar = document.createElement("div");
@@ -86,6 +94,8 @@ document.body.prepend(
     modalToggle,
     descriptionModal,
     descriptionToggle,
+    parametersToggle,
+    parametersPanel,
     energyBar,
     energyBarLabel,
     playbackContainer
@@ -124,11 +134,14 @@ descriptionModal.addEventListener("click", () => {
     }
 });
 descriptionToggle.addEventListener("click", descriptionModalHandler);
+parametersToggle.addEventListener("click", () => {
+    parametersPanel.classList.toggle("shown");
+});
 
 const systemScript = document.createElement("script");
 systemScript.type = "mpy";
-systemScript.src = "system.py";
-systemScript.setAttribute("config", "../mechsimulator-conf.json?v=2");
+systemScript.src = "system.py?v=5";
+systemScript.setAttribute("config", "../mechsimulator-conf.json?v=5");
 document.body.append(systemScript);
 
 MathJax = {
@@ -175,6 +188,46 @@ function setEquationlabel(label) {
     MathJax.typesetPromise([equationLabel]).then(() => {
         equationLabel.classList.add("shown");
     });
+}
+
+function setParameterControls(parameters, values) {
+    if (typeof parameters === "string") {
+        parameters = JSON.parse(parameters);
+    }
+    if (typeof values === "string") {
+        values = JSON.parse(values);
+    }
+    for (const parameter of parameters) {
+        const row = document.createElement("label");
+        row.className = "parameter-row";
+        row.innerHTML = `
+            <span>${parameter.label}</span>
+            <input type="range" min="${parameter.min}" max="${parameter.max}"
+                step="${parameter.step}" value="${values[parameter.name]}">
+            <input type="number" min="${parameter.min}" max="${parameter.max}"
+                step="${parameter.step}" value="${values[parameter.name]}">
+        `;
+        const range = row.children[1];
+        const number = row.children[2];
+        const update = (event) => {
+            const value = Math.min(parameter.max, Math.max(parameter.min, Number(event.target.value)));
+            range.value = value;
+            number.value = value;
+            if (window.applySimulationParameters != null) {
+                window.applySimulationParameters(
+                    parameters.map((item) => item.name === parameter.name ? value :
+                        Number(document.querySelector(`[data-parameter="${item.name}"]`)?.value ??
+                            values[item.name]))
+                );
+            }
+        };
+        range.dataset.parameter = parameter.name;
+        number.dataset.parameter = parameter.name;
+        range.addEventListener("input", update);
+        number.addEventListener("change", update);
+        parametersPanel.append(row);
+    }
+    parametersPanel.classList.add("available");
 }
 
 function setEnergyLabel(kinetic, potential) {
