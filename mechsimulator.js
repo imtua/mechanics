@@ -235,7 +235,11 @@ function setEnergyLabel(kinetic, potential) {
     const v = potential.toFixed(2);
     const tv = (kinetic + potential).toFixed(2);
     energyLabel.textContent = `Kinetic: ${t} | Potential: ${v} | Total: ${tv}`;
-    kineticBar.style.height = (t / tv * 100) + "%";
+    const energyMagnitude = Math.abs(kinetic) + Math.abs(potential);
+    const kineticPercent = energyMagnitude === 0
+        ? 0
+        : Math.min(100, Math.max(0, Math.abs(kinetic) / energyMagnitude * 100));
+    kineticBar.style.height = kineticPercent + "%";
 }
 
 function setMetrics(time, angles, velocities) {
