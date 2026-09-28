@@ -1,0 +1,1 @@
+A browser-based elastic pendulum simulator. A mass swings while attached to an extensible spring, coupling radial stretching and angular motion. The equations of motion are derived from kinetic, gravitational, and spring potential energy using the MechMaths engine.

@@ -14,6 +14,7 @@ Check out these links to find out
 - <a href="mechanics.help/cart/"><b>Cart and Pendulum</b></a>
 - <a href="mechanics.help/slope/"><b>Disk on Slope</b></a>
 - <a href="mechanics.help/disk/"><b>Rolling Disk Pendulum</b></a>
+- <a href="mechanics.help/elastic/"><b>Elastic Pendulum</b></a>
 - <a href="mechanics.help/mechmaths/"><b>Learn how mechmaths work</b></a>
 
 

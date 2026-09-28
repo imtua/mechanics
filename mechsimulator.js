@@ -153,7 +153,11 @@ let mechasimulator = {
     symbols: {
         names: [],
         latex: []
-    }
+    },
+    metricLabels: [],
+    metricVelocityLabels: [],
+    metricUnits: [],
+    metricVelocityUnits: []
 }
 
 window.addEventListener("load", () => {
@@ -247,9 +251,14 @@ function setMetrics(time, angles, velocities) {
     metricsLabel.innerHTML = `<div>Time: ${time.toFixed(2)} s</div>`;
     for (let i = 0; i < angles.length; i++) {
         const suffix = angleNames[i]?.slice(1) || "";
-        const label = suffix ? `θ${suffix}` : "θ";
-        metricsLabel.innerHTML += `<div>${label}: ${angles[i].toFixed(2)} rad</div>`;
-        metricsLabel.innerHTML += `<div>ω${suffix}: ${velocities[i].toFixed(2)} rad/s</div>`;
+        const label = mechasimulator.metricLabels[i] ||
+            (suffix ? `θ${suffix}` : "θ");
+        const unit = mechasimulator.metricUnits[i] || "rad";
+        metricsLabel.innerHTML += `<div>${label}: ${angles[i].toFixed(2)} ${unit}</div>`;
+        const velocityLabel = mechasimulator.metricVelocityLabels[i] ||
+            (suffix ? `ω${suffix}` : "ω");
+        const velocityUnit = mechasimulator.metricVelocityUnits[i] || `${unit}/s`;
+        metricsLabel.innerHTML += `<div>${velocityLabel}: ${velocities[i].toFixed(2)} ${velocityUnit}</div>`;
     }
 }
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Elastic Pendulum";
+        mechasimulator.symbols.names = ["t", "r", "l", "k", "m"];
+        mechasimulator.symbols.latex = ["\\theta", "r", "l", "k", "m"];
+        mechasimulator.metricLabels = ["r", "θ"];
+        mechasimulator.metricVelocityLabels = ["dr/dt", "ω"];
+        mechasimulator.metricUnits = ["m", "rad"];
+        mechasimulator.metricVelocityUnits = ["m/s", "rad/s"];
+
+        function drawSystem(params) {
+            const r = params[0];
+            const theta = params[1];
+            const scale = 160;
+            const x = r * Math.sin(theta) * scale;
+            const y = -r * Math.cos(theta) * scale;
+
+            resetCanvas();
+            ctx.translate(0, -80);
+            drawAxis(45);
+            drawAngle(-theta, 35);
+            moveLabel("t", 20, -10);
+            drawSpring({ start: { x: 0, y: 0 }, end: { x, y } });
+            moveLabel("k", x / 2 + 12, y / 2);
+            moveLabel("l", 15, -35);
+
+            ctx.translate(x, y);
+            drawMass();
+            moveLabel("m", 22, 0);
+            moveLabel("r", -18, 0);
+        }
+    </script>
+</body>
+
+</html>
