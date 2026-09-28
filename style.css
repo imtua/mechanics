@@ -38,15 +38,15 @@ body:not(.home-body) {
 
 #parameters-toggle {
     position: absolute;
-    top: 6em;
-    left: 0.5em;
+    top: calc(50% + 4em);
+    right: 1em;
 }
 
 #parameters-panel {
     position: absolute;
     display: none;
-    top: 8em;
-    left: 0.5em;
+    top: calc(50% + 7em);
+    right: 1em;
     max-width: min(28em, calc(100vw - 1em));
     padding: 0.75em;
     border: 2px solid black;
