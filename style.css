@@ -223,3 +223,107 @@ body:not(.home-body) {
 #description-file {
     white-space: pre-wrap;
 }
+
+@media (max-width: 600px) {
+    body:not(.home-body) {
+        overflow: hidden;
+    }
+
+    #energy-label {
+        top: 0.35em;
+        left: 0.5em;
+        max-width: 48%;
+        font-size: 0.75em;
+        white-space: nowrap;
+    }
+
+    #equation-label {
+        top: 0.25em;
+        right: 0.5em;
+        max-width: 48%;
+        font-size: 0.7em;
+        text-align: right;
+    }
+
+    #modal-toggle,
+    #description-toggle {
+        left: 0.5em;
+        font-size: 0.75em;
+    }
+
+    #modal-toggle {
+        top: 3em;
+    }
+
+    #description-toggle {
+        top: 5.25em;
+    }
+
+    #metrics-label {
+        top: 7em;
+        right: 0.5em;
+        transform: none;
+        font-size: 0.8em;
+    }
+
+    #parameters-toggle {
+        top: 14em;
+        right: 0.5em;
+        font-size: 0.75em;
+    }
+
+    #parameters-panel {
+        top: 16em;
+        right: 0.5em;
+        max-width: calc(100vw - 1em);
+        max-height: calc(100vh - 18em);
+        overflow: auto;
+        padding: 0.5em;
+        font-size: 0.8em;
+    }
+
+    .parameter-row {
+        grid-template-columns: 7em minmax(7em, 1fr) 4.5em;
+        gap: 0.25em;
+    }
+
+    .parameter-row input[type="number"] {
+        width: 4em;
+    }
+
+    #energy-bar-label {
+        top: 20%;
+        left: 0.5em;
+        transform: translateY(-1.75em);
+        font-size: 0.75em;
+    }
+
+    #energy-bar {
+        top: 23%;
+        bottom: 5em;
+        left: 0.5em;
+        width: 1em;
+    }
+
+    #simulation-label {
+        right: 0.5em;
+        bottom: 3.75em;
+        font-size: 1.25em;
+    }
+
+    #attribution-label {
+        right: 0.5em;
+        bottom: 0.5em;
+        font-size: 0.65em;
+    }
+
+    #mechmath-link {
+        bottom: 0.5em;
+        font-size: 0.7em;
+    }
+
+    #playback-container {
+        right: 0.5em;
+        bottom: 2.25em;
+    }
+}
