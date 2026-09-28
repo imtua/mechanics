@@ -289,8 +289,8 @@ function getWorld(x, y) {
 function moveLabel(name, x, y) {
     if (mechasimulator.symbols[name] != null) {
         let canvasPoint = getWorld(x, y);
-        let x2 = "calc(" + canvasPoint.x + "px - 50%";
-        let y2 = "calc(" + canvasPoint.y + "px - 50% ";
+        let x2 = "calc(" + canvasPoint.x + "px - 50%)";
+        let y2 = "calc(" + canvasPoint.y + "px - 50%)";
         mechasimulator.symbols[name].style.transform = "translate(" + x2 + "," + y2 + ")";
         mechasimulator.symbols[name].style.visibility = "visible";
     }
