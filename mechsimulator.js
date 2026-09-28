@@ -51,6 +51,11 @@ const descriptionToggle = document.createElement("button");
 descriptionToggle.id = "description-toggle";
 descriptionToggle.innerHTML = "Description";
 
+const homeLink = document.createElement("a");
+homeLink.id = "home-link";
+homeLink.href = "../";
+homeLink.textContent = "Home";
+
 const parametersToggle = document.createElement("button");
 parametersToggle.id = "parameters-toggle";
 parametersToggle.innerHTML = "Parameters";
@@ -94,6 +99,7 @@ document.body.prepend(
     modalToggle,
     descriptionModal,
     descriptionToggle,
+    homeLink,
     parametersToggle,
     parametersPanel,
     energyBar,

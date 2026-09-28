@@ -36,6 +36,17 @@ body:not(.home-body) {
     left: 0.5em;
 }
 
+#home-link {
+    position: absolute;
+    top: 6em;
+    left: 0.5em;
+    padding: 0.15em 0.4em;
+    border: 2px solid black;
+    color: inherit;
+    background-color: white;
+    text-decoration: none;
+}
+
 #parameters-toggle {
     position: absolute;
     top: calc(50% + 4em);
@@ -257,6 +268,12 @@ body:not(.home-body) {
 
     #description-toggle {
         top: 5.25em;
+    }
+
+    #home-link {
+        top: 7.5em;
+        left: 0.5em;
+        font-size: 0.75em;
     }
 
     #metrics-label {
