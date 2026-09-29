@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 ctx.lineCap = "round";
 const trailPoints = new Map();
 const trailDuration = 1000;
+let auxiliaryLayoutPending = false;
 
 const energyLabel = document.createElement("div");
 energyLabel.id = "energy-label";
@@ -302,7 +303,12 @@ function setParameterSummary(constants) {
 }
 
 function positionAuxiliaryControls() {
+    if (auxiliaryLayoutPending) {
+        return;
+    }
+    auxiliaryLayoutPending = true;
     requestAnimationFrame(() => {
+        auxiliaryLayoutPending = false;
         const metrics = metricsLabel.getBoundingClientRect();
         const gap = 12;
         const buttonTop = metrics.bottom + gap;
