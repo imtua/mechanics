@@ -189,7 +189,9 @@ class Variable(Expression):
     def contains(self, name):
         if name == self.name:
             return True
-        elif name == "t" and self.name.replace("dot", "") in Expression.context:
+        elif name == "t" and (
+            self.name == "t" or self.name.replace("dot", "") in Expression.context
+        ):
             return True
         return False
 

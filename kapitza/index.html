@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Kapitza Pendulum";
+        mechasimulator.symbols.names = ["theta", "l", "a", "omega"];
+        mechasimulator.symbols.latex = ["\\theta", "l", "a", "\\omega"];
+        mechasimulator.metricLabels = ["θ"];
+        mechasimulator.metricVelocityLabels = ["dθ/dt"];
+
+        function drawSystem(params, time, constants) {
+            const theta = params[0];
+            const scale = 150;
+            const pivotY = constants.a * Math.cos(constants.omega * time) * scale;
+            const bobX = Math.sin(theta) * constants.l * scale;
+            const bobY = pivotY - Math.cos(theta) * constants.l * scale;
+
+            resetCanvas();
+            ctx.translate(0, -20);
+            ctx.setLineDash([]);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#000";
+            ctx.beginPath();
+            ctx.moveTo(-35, pivotY);
+            ctx.lineTo(35, pivotY);
+            ctx.stroke();
+            ctx.translate(0, pivotY);
+            drawHinge();
+            ctx.rotate(-theta);
+            drawBar(constants.l * scale);
+            ctx.rotate(theta);
+            ctx.translate(bobX, bobY - pivotY);
+            drawTrailPoint();
+            drawMass();
+            moveLabel("m", 20, 0);
+        }
+    </script>
+</body>
+
+</html>

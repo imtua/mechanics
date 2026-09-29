@@ -18,6 +18,7 @@ Check out these links to find out
 - <a href="https://mechanics.help/bead/"><b>Bead on a Rotating Hoop</b></a>
 - <a href="https://mechanics.help/chain/"><b>Coupled Spring-Mass Chain</b></a>
 - <a href="https://mechanics.help/spherical/"><b>Spherical Pendulum</b></a>
+- <a href="https://mechanics.help/kapitza/"><b>Kapitza Pendulum</b></a>
 - <a href="https://mechanics.help/mechmaths/"><b>Learn how mechmaths work</b></a>
 
 
