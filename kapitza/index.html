@@ -37,7 +37,7 @@
             ctx.translate(0, pivotY);
             drawHinge();
             ctx.save();
-            ctx.rotate(Math.PI - theta);
+            ctx.rotate(theta - Math.PI);
             drawBar(constants.l * scale);
             ctx.restore();
             ctx.translate(bobX, bobY);
