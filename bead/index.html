@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Bead on a Rotating Hoop";
+        mechasimulator.symbols.names = ["theta", "R", "m", "omega"];
+        mechasimulator.symbols.latex = ["\\theta", "R", "m", "\\omega"];
+
+        function drawSystem(params, time, constants) {
+            const theta = params[0];
+            const radius = 150;
+            const omega = constants.omega;
+            const phase = omega * time;
+            const horizontalRadius = Math.max(12, Math.abs(Math.cos(phase)) * radius);
+            const x = radius * Math.sin(theta) * Math.cos(phase);
+            const y = -radius * Math.cos(theta);
+
+            resetCanvas();
+            ctx.translate(0, -40);
+            ctx.setLineDash([]);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#000";
+            ctx.beginPath();
+            ctx.ellipse(0, 0, horizontalRadius, radius, 0, 0, 2 * Math.PI);
+            ctx.stroke();
+            drawAxis(radius * 0.35);
+
+            ctx.translate(x, y);
+            drawTrailPoint();
+            drawMass();
+            moveLabel("m", 20, 0);
+        }
+    </script>
+</body>
+
+</html>

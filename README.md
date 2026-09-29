@@ -15,6 +15,7 @@ Check out these links to find out
 - <a href="https://mechanics.help/slope/"><b>Disk on Slope</b></a>
 - <a href="https://mechanics.help/disk/"><b>Rolling Disk Pendulum</b></a>
 - <a href="https://mechanics.help/elastic/"><b>Elastic Pendulum</b></a>
+- <a href="https://mechanics.help/bead/"><b>Bead on a Rotating Hoop</b></a>
 - <a href="https://mechanics.help/mechmaths/"><b>Learn how mechmaths work</b></a>
 
 

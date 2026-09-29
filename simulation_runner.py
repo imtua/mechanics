@@ -30,7 +30,9 @@ def update(timestamp):
 
 def update_screen():
     params = main_solver.get_params()
-    window.drawSystem(ffi.to_js(params))
+    window.drawSystem(
+        ffi.to_js(params), main_solver.time, ffi.to_js(main_constants)
+    )
     window.setMetrics(
         main_solver.time,
         ffi.to_js(params),
@@ -74,11 +76,13 @@ def render_equation_label():
     window.setEquationlabel(latex)
 
 def update_parameters(values):
+    global main_constants
     constants = main_constants.copy()
     for i, parameter in enumerate(main_parameters):
         value = float(values[i])
         value = max(parameter["min"], min(parameter["max"], value))
         constants[parameter["name"]] = value
+    main_constants = constants
     main_solver.load_constants(constants)
     main_solver.load_initial_values(main_initial)
     render_equation_label()
