@@ -26,6 +26,7 @@
             drawPlane();
             ctx.translate(x * scale, -r * scale);
             ctx.rotate(x / r);
+            drawTrailPoint();
             drawDisk(scale);
             moveLabel("m", -15, -15);
             moveLabel("r", r / 2 * scale, -15);

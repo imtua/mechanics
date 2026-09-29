@@ -39,6 +39,7 @@
             ctx.rotate(-theta);
             ctx.translate(10, r * scale);
             moveLabel("r", 15, -r * scale / 2);
+            drawTrailPoint();
             drawMass();
             ctx.rotate(Math.PI);
             drawAxis(r * scale);

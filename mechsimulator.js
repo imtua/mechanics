@@ -2,6 +2,8 @@ const canvas = document.createElement("canvas");
 canvas.id = "canvas";
 const ctx = canvas.getContext("2d");
 ctx.lineCap = "round";
+const trailPoints = [];
+const trailDuration = 1000;
 
 const energyLabel = document.createElement("div");
 energyLabel.id = "energy-label";
@@ -292,6 +294,40 @@ function resetCanvas() {
     ctx.translate(canvas.width / 3, canvas.height / 2);
 }
 
+function drawTrailPoint() {
+    const now = performance.now();
+    const point = getWorld(0, 0);
+    trailPoints.push({ x: point.x, y: point.y, time: now });
+
+    while (trailPoints.length > 1 && now - trailPoints[0].time > trailDuration) {
+        trailPoints.shift();
+    }
+
+    const transform = ctx.getTransform();
+    const strokeStyle = ctx.strokeStyle;
+    const lineWidth = ctx.lineWidth;
+    const lineDash = ctx.getLineDash();
+    ctx.resetTransform();
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([]);
+    for (let i = 1; i < trailPoints.length; i++) {
+        const age = now - trailPoints[i].time;
+        const opacity = Math.max(0, 1 - age / trailDuration);
+        if (opacity === 0) {
+            continue;
+        }
+        ctx.strokeStyle = `rgba(50, 85, 255, ${opacity})`;
+        ctx.beginPath();
+        ctx.moveTo(trailPoints[i - 1].x, trailPoints[i - 1].y);
+        ctx.lineTo(trailPoints[i].x, trailPoints[i].y);
+        ctx.stroke();
+    }
+    ctx.setTransform(transform);
+    ctx.strokeStyle = strokeStyle;
+    ctx.lineWidth = lineWidth;
+    ctx.setLineDash(lineDash);
+}
+
 function drawHinge() {
     drawCircle(4, "white", 2);
     drawCircle(0.5, "black", 0);
@@ -408,6 +444,7 @@ function drawDisk(radius, fill = "white", width = 3) {
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    trailPoints.length = 0;
 }
 
 window.addEventListener("load", resize);
