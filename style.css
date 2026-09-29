@@ -9,6 +9,10 @@ body:not(.home-body) {
     overflow: hidden;
 }
 
+body.maths-body {
+    overflow: auto;
+}
+
 #energy-label {
     position: absolute;
     top: 0.5em;
