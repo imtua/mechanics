@@ -274,7 +274,7 @@ function setMetrics(time, angles, velocities) {
         const velocityUnit = mechasimulator.metricVelocityUnits[i] || `${unit}/s`;
         metricsLabel.innerHTML += `<div>${velocityLabel}: ${velocities[i].toFixed(2)} ${velocityUnit}</div>`;
     }
-
+    positionAuxiliaryControls();
 }
 
 function setConservedLabel(velocities, constants, params) {
@@ -289,6 +289,7 @@ function setConservedLabel(velocities, constants, params) {
     conservedLabel.innerHTML = entries
         .map(([value, label]) => `${label}: ${value.toFixed(3)}`)
         .join("<br>");
+    positionAuxiliaryControls();
 }
 
 function setParameterSummary(constants) {
@@ -297,6 +298,27 @@ function setParameterSummary(constants) {
         return;
     }
     parameterSummary.textContent = mechasimulator.parameterSummary(constants);
+    positionAuxiliaryControls();
+}
+
+function positionAuxiliaryControls() {
+    requestAnimationFrame(() => {
+        const metrics = metricsLabel.getBoundingClientRect();
+        const gap = 12;
+        const buttonTop = metrics.bottom + gap;
+        parametersToggle.style.top = `${buttonTop}px`;
+        parametersPanel.style.top =
+            `${buttonTop + parametersToggle.offsetHeight + gap}px`;
+
+        let nextTop = parametersToggle.getBoundingClientRect().bottom + gap;
+        if (conservedLabel.textContent) {
+            conservedLabel.style.top = `${nextTop}px`;
+            nextTop = conservedLabel.getBoundingClientRect().bottom + gap;
+        }
+        if (parameterSummary.textContent) {
+            parameterSummary.style.top = `${nextTop}px`;
+        }
+    });
 }
 
 function setPlaybackButtons(reset, toggle, step) {
@@ -486,3 +508,4 @@ function resize() {
 
 window.addEventListener("load", resize);
 window.addEventListener("resize", resize);
+window.addEventListener("resize", positionAuxiliaryControls);

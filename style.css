@@ -26,14 +26,14 @@ body:not(.home-body) {
 
 #conserved-label {
     position: absolute;
-    top: calc(50% + 5em);
+    top: 0;
     right: 1em;
     text-align: right;
 }
 
 #parameter-summary {
     position: absolute;
-    top: calc(50% + 9em);
+    top: 0;
     right: 1em;
     line-height: 1.5;
     text-align: right;
@@ -64,14 +64,14 @@ body:not(.home-body) {
 
 #parameters-toggle {
     position: absolute;
-    top: calc(50% + 4em);
+    top: 0;
     right: 1em;
 }
 
 #parameters-panel {
     position: absolute;
     display: none;
-    top: calc(50% + 7em);
+    top: 0;
     right: 1em;
     max-width: min(28em, calc(100vw - 1em));
     padding: 0.75em;
