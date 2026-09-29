@@ -11,6 +11,8 @@ const metricsLabel = document.createElement("div");
 metricsLabel.id = "metrics-label";
 const conservedLabel = document.createElement("div");
 conservedLabel.id = "conserved-label";
+const parameterSummary = document.createElement("div");
+parameterSummary.id = "parameter-summary";
 const symbolContainer = document.createElement("div");
 symbolContainer.id = "symbol-container";
 symbolContainer.classList.add("fade-in");
@@ -95,6 +97,7 @@ document.body.prepend(
     energyLabel,
     metricsLabel,
     conservedLabel,
+    parameterSummary,
     symbolContainer,
     equationLabel,
     simulationLabel,
@@ -272,19 +275,28 @@ function setMetrics(time, angles, velocities) {
         metricsLabel.innerHTML += `<div>${velocityLabel}: ${velocities[i].toFixed(2)} ${velocityUnit}</div>`;
     }
 
-    function setConservedLabel(velocities, constants, params) {
-        if (typeof mechasimulator.conservedQuantity !== "function") {
-            conservedLabel.textContent = "";
-            return;
-        }
-        const quantities = mechasimulator.conservedQuantity(
-            velocities, constants, params
-        );
-        const entries = Array.isArray(quantities[0]) ? quantities : [quantities];
-        conservedLabel.innerHTML = entries
-            .map(([value, label]) => `${label}: ${value.toFixed(3)}`)
-            .join("<br>");
+}
+
+function setConservedLabel(velocities, constants, params) {
+    if (typeof mechasimulator.conservedQuantity !== "function") {
+        conservedLabel.textContent = "";
+        return;
     }
+    const quantities = mechasimulator.conservedQuantity(
+        velocities, constants, params
+    );
+    const entries = Array.isArray(quantities[0]) ? quantities : [quantities];
+    conservedLabel.innerHTML = entries
+        .map(([value, label]) => `${label}: ${value.toFixed(3)}`)
+        .join("<br>");
+}
+
+function setParameterSummary(constants) {
+    if (typeof mechasimulator.parameterSummary !== "function") {
+        parameterSummary.textContent = "";
+        return;
+    }
+    parameterSummary.textContent = mechasimulator.parameterSummary(constants);
 }
 
 function setPlaybackButtons(reset, toggle, step) {

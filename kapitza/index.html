@@ -17,6 +17,11 @@
         mechasimulator.symbols.latex = ["\\theta", "l", "a", "\\omega"];
         mechasimulator.metricLabels = ["θ"];
         mechasimulator.metricVelocityLabels = ["dθ/dt"];
+        mechasimulator.parameterSummary = function (constants) {
+            return `Length: ${constants.l.toFixed(2)} m | Amplitude: ${
+                constants.a.toFixed(2)
+            } m | Frequency: ${constants.omega.toFixed(1)} rad/s`;
+        };
 
         function drawSystem(params, time, constants) {
             const theta = params[0];
@@ -30,9 +35,22 @@
             ctx.setLineDash([]);
             ctx.lineWidth = 3;
             ctx.strokeStyle = "#000";
+            ctx.save();
+            ctx.strokeStyle = "#888";
+            ctx.setLineDash([3, 3]);
             ctx.beginPath();
-            ctx.moveTo(-35, pivotY);
-            ctx.lineTo(35, pivotY);
+            ctx.moveTo(-55, -constants.a * scale);
+            ctx.lineTo(-55, constants.a * scale);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = "#555";
+            ctx.font = "14px ui-monospace, monospace";
+            ctx.textAlign = "left";
+            ctx.fillText("pivot vibration", -45, -constants.a * scale - 8);
+            ctx.restore();
+            ctx.beginPath();
+            ctx.moveTo(-35, 0);
+            ctx.lineTo(35, 0);
             ctx.stroke();
             ctx.translate(0, pivotY);
             drawHinge();

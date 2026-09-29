@@ -19,7 +19,7 @@ kinetic = 0.5 * m * (
 potential = m * Var("g") * (a * Cos(omega * t) - l * Cos(theta))
 
 solver = Solver(kinetic, potential)
-constants = {"m": 1, "g": 9.81, "l": 1, "a": 0.15, "omega": 40}
+constants = {"m": 1, "g": 9.81, "l": 1, "a": 0.15, "omega": 30}
 solver.load_constants(constants)
 parameters = [
     {"name": "m", "label": "Mass (kg)", "min": 0.1, "max": 20, "step": 0.1},

@@ -17,6 +17,11 @@
         mechasimulator.symbols.latex = ["\\theta", "\\phi", "l", "m"];
         mechasimulator.metricLabels = ["θ", "φ"];
         mechasimulator.metricVelocityLabels = ["dθ/dt", "dφ/dt"];
+        mechasimulator.parameterSummary = function (constants) {
+            return `Mass: ${constants.m.toFixed(2)} kg | Length: ${
+                constants.l.toFixed(2)
+            } m | Gravity: ${constants.g.toFixed(2)} m/s²`;
+        };
 
         mechasimulator.conservedQuantity = function (velocities, constants, params) {
             const angularMomentum = constants.m * constants.l ** 2 *

@@ -44,6 +44,8 @@ def update_screen():
             ffi.to_js(main_constants),
             ffi.to_js(params)
         )
+    if hasattr(window, "setParameterSummary"):
+        window.setParameterSummary(ffi.to_js(main_constants))
     t, v = main_solver.get_energies()
     window.setEnergyLabel(t, v)
 

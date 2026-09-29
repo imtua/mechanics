@@ -31,6 +31,14 @@ body:not(.home-body) {
     text-align: right;
 }
 
+#parameter-summary {
+    position: absolute;
+    top: calc(50% + 9em);
+    right: 1em;
+    line-height: 1.5;
+    text-align: right;
+}
+
 #modal-toggle {
     position: absolute;
     top: 2em;

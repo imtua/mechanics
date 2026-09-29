@@ -17,6 +17,13 @@
         mechasimulator.symbols.latex = ["\\theta", "\\phi", "\\psi"];
         mechasimulator.metricLabels = ["θ", "φ", "ψ"];
         mechasimulator.metricVelocityLabels = ["dθ/dt", "dφ/dt", "dψ/dt"];
+        mechasimulator.parameterSummary = function (constants) {
+            return `Mass: ${constants.m.toFixed(2)} kg | l: ${
+                constants.l.toFixed(2)
+            } m | I₁: ${constants.I1.toFixed(3)} | I₃: ${
+                constants.I3.toFixed(3)
+            }`;
+        };
 
         mechasimulator.conservedQuantity = function (velocities, constants, params) {
             const theta = params[0];
