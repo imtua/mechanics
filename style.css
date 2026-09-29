@@ -24,6 +24,13 @@ body:not(.home-body) {
     text-align: right;
 }
 
+#conserved-label {
+    position: absolute;
+    top: calc(50% + 5em);
+    right: 1em;
+    text-align: right;
+}
+
 #modal-toggle {
     position: absolute;
     top: 2em;

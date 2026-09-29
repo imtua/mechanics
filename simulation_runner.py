@@ -38,6 +38,12 @@ def update_screen():
         ffi.to_js(params),
         ffi.to_js(main_solver.phase[1].tolist())
     )
+    if hasattr(window, "setConservedLabel"):
+        window.setConservedLabel(
+            ffi.to_js(main_solver.phase[1].tolist()),
+            ffi.to_js(main_constants),
+            ffi.to_js(params)
+        )
     t, v = main_solver.get_energies()
     window.setEnergyLabel(t, v)
 
@@ -90,7 +96,7 @@ def update_parameters(values):
 
 
 def load_solver(solver, initial, custom_steps=None, render_equations=True,
-                constants=None, parameters=None):
+                constants=None, parameters=None, initial_derivs=None):
     global main_solver, main_initial, main_constants, main_parameters, steps
     main_solver = solver
     main_initial = initial
@@ -112,5 +118,5 @@ def load_solver(solver, initial, custom_steps=None, render_equations=True,
             json.dumps(main_parameters),
             json.dumps(main_constants)
         )
-    solver.load_initial_values(initial)
+    solver.load_initial_values(initial, initial_derivs)
     request_update()

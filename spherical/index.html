@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Spherical Pendulum";
+        mechasimulator.symbols.names = ["theta", "phi", "l", "m"];
+        mechasimulator.symbols.latex = ["\\theta", "\\phi", "l", "m"];
+        mechasimulator.metricLabels = ["θ", "φ"];
+        mechasimulator.metricVelocityLabels = ["dθ/dt", "dφ/dt"];
+
+        mechasimulator.conservedQuantity = function (velocities, constants, params) {
+            const angularMomentum = constants.m * constants.l ** 2 *
+                Math.sin(params[0]) ** 2 * velocities[1];
+            return [angularMomentum, "Angular momentum"];
+        };
+
+        function drawView(centerX, centerY, theta, phi, topDown, trailColor) {
+            const radius = 110;
+            const x = topDown
+                ? radius * Math.sin(theta) * Math.cos(phi)
+                : radius * Math.sin(theta);
+            const y = topDown
+                ? radius * Math.sin(theta) * Math.sin(phi)
+                : -radius * Math.cos(theta);
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.setLineDash([]);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = "#000";
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            ctx.setLineDash([2.5, 2.5]);
+            ctx.beginPath();
+            ctx.moveTo(0, topDown ? 0 : -radius);
+            ctx.lineTo(0, topDown ? 0 : radius);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.translate(x, y);
+            drawTrailPoint(trailColor);
+            drawMass();
+            ctx.restore();
+        }
+
+        function drawSystem(params) {
+            const centerY = canvas.height / 2 - 20;
+            resetCanvas();
+            ctx.resetTransform();
+            ctx.fillStyle = "#000";
+            ctx.font = "16px ui-monospace, monospace";
+            ctx.textAlign = "center";
+            ctx.fillText("Side view", canvas.width / 3, centerY - 140);
+            ctx.fillText("Top-down view", canvas.width * 2 / 3, centerY - 140);
+            drawView(canvas.width / 3, centerY, params[0], params[1], false, "blue");
+            drawView(canvas.width * 2 / 3, centerY, params[0], params[1], true, "green");
+        }
+    </script>
+</body>
+
+</html>

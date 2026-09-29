@@ -9,6 +9,8 @@ const energyLabel = document.createElement("div");
 energyLabel.id = "energy-label";
 const metricsLabel = document.createElement("div");
 metricsLabel.id = "metrics-label";
+const conservedLabel = document.createElement("div");
+conservedLabel.id = "conserved-label";
 const symbolContainer = document.createElement("div");
 symbolContainer.id = "symbol-container";
 symbolContainer.classList.add("fade-in");
@@ -92,6 +94,7 @@ document.body.prepend(
     canvas,
     energyLabel,
     metricsLabel,
+    conservedLabel,
     symbolContainer,
     equationLabel,
     simulationLabel,
@@ -267,6 +270,17 @@ function setMetrics(time, angles, velocities) {
             (suffix ? `ω${suffix}` : "ω");
         const velocityUnit = mechasimulator.metricVelocityUnits[i] || `${unit}/s`;
         metricsLabel.innerHTML += `<div>${velocityLabel}: ${velocities[i].toFixed(2)} ${velocityUnit}</div>`;
+    }
+
+    function setConservedLabel(velocities, constants, params) {
+        if (typeof mechasimulator.conservedQuantity !== "function") {
+            conservedLabel.textContent = "";
+            return;
+        }
+        const [value, label] = mechasimulator.conservedQuantity(
+            velocities, constants, params
+        );
+        conservedLabel.textContent = `${label}: ${value.toFixed(3)}`;
     }
 }
 
