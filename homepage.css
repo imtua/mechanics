@@ -10,9 +10,8 @@
 }
 
 .site-attribution {
-    position: fixed;
-    right: 1em;
-    bottom: 0.5em;
+    margin-top: 2rem;
+    text-align: center;
 }
 
 .mechmath-link {
@@ -26,12 +25,10 @@
 }
 
 .learning-links {
-    position: fixed;
-    bottom: 0.5em;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top: 0.75rem;
     display: flex;
     gap: 0.5em;
+    justify-content: center;
     white-space: nowrap;
 }
 
@@ -135,13 +132,7 @@
         grid-template-columns: 1fr;
     }
 
-    .site-attribution {
-        bottom: 3em;
-        font-size: 0.8em;
-    }
-
     .learning-links {
-        bottom: 0.5em;
         max-width: calc(100vw - 1em);
         flex-wrap: wrap;
         justify-content: center;
