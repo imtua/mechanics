@@ -36,9 +36,10 @@
             ctx.stroke();
             ctx.translate(0, pivotY);
             drawHinge();
-            ctx.rotate(theta - Math.PI);
-            drawBar(constants.l * scale);
+            ctx.save();
             ctx.rotate(Math.PI - theta);
+            drawBar(constants.l * scale);
+            ctx.restore();
             ctx.translate(bobX, bobY);
             drawTrailPoint();
             drawMass();

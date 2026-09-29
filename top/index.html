@@ -49,22 +49,35 @@
             ctx.stroke();
             ctx.setLineDash([]);
             ctx.beginPath();
-            ctx.arc(0, 0, 10, 0, 2 * Math.PI);
-            ctx.stroke();
-
-            ctx.rotate(-phi);
-            ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(0, scale);
+            ctx.lineTo(bobX, bobY);
             ctx.stroke();
-            ctx.rotate(phi);
             ctx.translate(bobX, bobY);
             ctx.rotate(spin);
-            drawTrailPoint();
-            ctx.fillStyle = "#222";
+            drawTrailPoint("blue");
+            drawMass();
+            ctx.restore();
+        }
+
+        function drawTopView(centerX, centerY, theta, phi) {
+            const scale = 130;
+            const bobX = scale * Math.sin(theta) * Math.cos(phi);
+            const bobY = scale * Math.sin(theta) * Math.sin(phi);
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.ellipse(0, 0, 18, 10, 0, 0, 2 * Math.PI);
-            ctx.fill();
+            ctx.arc(0, 0, scale, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(bobX, bobY);
+            ctx.stroke();
+            ctx.translate(bobX, bobY);
+            drawTrailPoint("green");
+            drawMass();
             ctx.restore();
         }
 
@@ -78,20 +91,7 @@
             ctx.fillText("Precession and nutation", canvas.width / 3, centerY - 170);
             ctx.fillText("Top view of precession", canvas.width * 2 / 3, centerY - 170);
             drawTop(canvas.width / 3, centerY, params[0], params[1], params[2], time);
-
-            ctx.save();
-            ctx.translate(canvas.width * 2 / 3, centerY);
-            ctx.strokeStyle = "#000";
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.arc(0, 0, 105, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.rotate(params[1]);
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(105 * Math.sin(params[0]), -105 * Math.cos(params[0]));
-            ctx.stroke();
-            ctx.restore();
+            drawTopView(canvas.width * 2 / 3, centerY, params[0], params[1]);
         }
     </script>
 </body>
