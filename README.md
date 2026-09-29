@@ -39,7 +39,7 @@ One of the techniques I used was dynamically creating each simulation webpage en
 The system code is extremely intuitive to the point where even non-programmers should be capable of understanding how the system is set-up. The most complex system, the Rolling Disk Pendulum, has no less than 7 components exerting classical forces on each other, but the Euler-Lagrange equations convert this simply to a set of simultaneous equations that can be solved instantly for individual accelerations. This results in fluid motion appearing on the screen, no matter how chaotic the system is.
 
 # Documents
-- <a href="https://github.com/imtua/mechanics/blob/main/maths/maths.md"><b>Mathematical Equations</b></a>
+- <a href="https://mechanics.help/maths/"><b>Mathematical Equations</b></a>
 - <a href="https://github.com/imtua/mechanics/blob/main/mechmaths/README.md"><b>MechMaths Operations</b></a>
 
 Simulation pages include a Parameters panel with curated physical inputs such as mass, gravity, length, radius, and spring stiffness. Every input has a model-specific safe range; changing a value clamps it to that range, rebuilds the equations, and restarts the simulation from its initial state.

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanics Mathematics</title>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+            svg: { fontCache: "global" }
+        };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            overflow: auto;
+        }
+
+        .maths-page {
+            max-width: 62rem;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 5rem;
+            line-height: 1.6;
+        }
+
+        .maths-page h1,
+        .maths-page h2,
+        .maths-page h3 {
+            line-height: 1.2;
+        }
+
+        .maths-page h1 {
+            margin-bottom: 0.25rem;
+        }
+
+        .maths-page h2 {
+            margin-top: 3rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 0.25rem;
+        }
+
+        .maths-page h3 {
+            margin-top: 2rem;
+        }
+
+        .maths-page nav {
+            border: 2px solid #000;
+            padding: 0.75rem 1rem;
+            background: #fff;
+        }
+
+        .maths-page nav a {
+            color: inherit;
+            margin-right: 1rem;
+        }
+
+        .equation {
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .note {
+            border-left: 4px solid #000;
+            padding-left: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="maths-page">
+        <h1>Mechanics Mathematics</h1>
+        <p>
+            This page explains the mathematical model used by every mechanism in
+            the simulator. Each system is described by generalized coordinates,
+            its kinetic energy \(T\), its potential energy \(V\), and the
+            Lagrangian \(L=T-V\).
+        </p>
+
+        <nav aria-label="Mathematics sections">
+            <a href="#method">Method</a>
+            <a href="#pendulums">Pendulums</a>
+            <a href="#springs">Springs</a>
+            <a href="#rolling">Rolling systems</a>
+            <a href="#advanced">Advanced systems</a>
+            <a href="#numerics">Numerical solution</a>
+        </nav>
+
+        <h2 id="method">1. The common method</h2>
+        <p>
+            A generalized coordinate \(q_i\) describes one independent way the
+            system can move. Its velocity is \(\dot q_i=dq_i/dt\). The
+            Euler-Lagrange equation for every coordinate is
+        </p>
+        <div class="equation">
+            \[
+            \frac{d}{dt}\left(\frac{\partial L}{\partial \dot q_i}\right)
+            -\frac{\partial L}{\partial q_i}=0,\qquad L=T-V.
+            \]
+        </div>
+        <p>
+            The symbolic engine differentiates \(L\), collects the coefficients
+            of the accelerations \(\ddot q_i\), and produces a linear system
+        </p>
+        <div class="equation">
+            \[
+            A(q,\dot q,t)\,\ddot q=b(q,\dot q,t).
+            \]
+        </div>
+        <p>
+            The solver evaluates \(A\) and \(b\) at the current state, solves
+            for the accelerations, and advances the state with fourth-order
+            Runge-Kutta integration.
+        </p>
+
+        <h2 id="pendulums">2. Pendulums</h2>
+        <h3>Simple pendulum</h3>
+        <p>With \(\mathbf r=(l\sin\theta,-l\cos\theta)\):</p>
+        <div class="equation">
+            \[
+            T=\frac12ml^2\dot\theta^2,\qquad
+            V=-mgl\cos\theta,
+            \]
+            \[
+            ml^2\ddot\theta+mgl\sin\theta=0,\qquad
+            \ddot\theta=-\frac gl\sin\theta.
+            \]
+        </div>
+
+        <h3>Double pendulum</h3>
+        <p>
+            The two angles are measured from the downward vertical. The bob
+            positions are
+        </p>
+        <div class="equation">
+            \[
+            \mathbf r_1=(l_1\sin\theta_1,-l_1\cos\theta_1),
+            \]
+            \[
+            \mathbf r_2=\mathbf r_1+
+            (l_2\sin\theta_2,-l_2\cos\theta_2).
+            \]
+        </div>
+        <div class="equation">
+            \[
+            T=\frac12(m_1+m_2)l_1^2\dot\theta_1^2+
+            \frac12m_2l_2^2\dot\theta_2^2+
+            m_2l_1l_2\dot\theta_1\dot\theta_2
+            \cos(\theta_1-\theta_2),
+            \]
+            \[
+            V=-(m_1+m_2)gl_1\cos\theta_1-m_2gl_2\cos\theta_2.
+            \]
+        </div>
+        <p class="note">
+            The equations are coupled because the kinetic energy contains both
+            velocities. The solver solves the resulting \(2\times2\) system at
+            every time step.
+        </p>
+
+        <h3>Spherical pendulum</h3>
+        <p>
+            The polar angle \(\theta\) and azimuth \(\phi\) locate the bob on a
+            sphere of radius \(l\):
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12ml^2\left(\dot\theta^2+
+            \sin^2\theta\,\dot\phi^2\right),\qquad
+            V=-mgl\cos\theta.
+            \]
+        </div>
+        <p>
+            Since \(\phi\) does not appear in \(L\), it is cyclic. Its conjugate
+            momentum is conserved:
+        </p>
+        <div class="equation">
+            \[
+            p_\phi=\frac{\partial L}{\partial\dot\phi}
+            =ml^2\sin^2\theta\,\dot\phi.
+            \]
+        </div>
+
+        <h3>Bead on a rotating hoop</h3>
+        <p>
+            A hoop rotates about its vertical diameter with prescribed angular
+            speed \(\Omega\). For bead angle \(\theta\), the kinetic energy is
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12mR^2\left(\dot\theta^2+
+            \Omega^2\sin^2\theta\right),\qquad
+            V=-mgR\cos\theta.
+            \]
+        </div>
+        <p>
+            The \(\Omega^2\sin^2\theta\) term is the rotational kinetic energy
+            caused by the hoop itself, and changes the equilibria.
+        </p>
+
+        <h3>Kapitza pendulum</h3>
+        <p>
+            The pivot height is prescribed as \(y_p=a\cos(\Omega t)\). The bob
+            position is
+        </p>
+        <div class="equation">
+            \[
+            x=l\sin\theta,\qquad y=a\cos(\Omega t)-l\cos\theta.
+            \]
+        </div>
+        <div class="equation">
+            \[
+            T=\frac12m\left[
+            l^2\cos^2\theta\,\dot\theta^2+
+            \left(-a\Omega\sin(\Omega t)+l\sin\theta\,\dot\theta\right)^2
+            \right],
+            \]
+            \[
+            V=mg\left[a\cos(\Omega t)-l\cos\theta\right].
+            \]
+        </div>
+        <p class="note">
+            \(L\) depends explicitly on time, so mechanical energy is not
+            conserved. At sufficiently rapid vibration, the time-averaged
+            dynamics can stabilize the normally unstable inverted position.
+        </p>
+
+        <h2 id="springs">3. Springs and coupled oscillators</h2>
+        <h3>Elastic pendulum</h3>
+        <p>
+            Using radial extension \(r\) and angle \(\theta\), the bob is
+            \(\mathbf r=(r\sin\theta,-r\cos\theta)\). Therefore
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12m\left(\dot r^2+r^2\dot\theta^2\right),
+            \qquad
+            V=-mgr\cos\theta+\frac12k(r-l)^2.
+            \]
+        </div>
+
+        <h3>Coupled spring-mass chain \((x_1,x_2,x_3)\)</h3>
+        <p>
+            Three masses move horizontally, with identical springs attached to
+            both walls and between neighboring masses. Displacements are
+            measured from equilibrium:
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12m_1\dot x_1^2+\frac12m_2\dot x_2^2+
+            \frac12m_3\dot x_3^2,
+            \]
+            \[
+            V=\frac12k\left[x_1^2+(x_2-x_1)^2+
+            (x_3-x_2)^2+x_3^2\right].
+            \]
+        </div>
+        <p>
+            The equations are
+        </p>
+        <div class="equation">
+            \[
+            m_1\ddot x_1+k(2x_1-x_2)=0,
+            \]
+            \[
+            m_2\ddot x_2+k(2x_2-x_1-x_3)=0,
+            \]
+            \[
+            m_3\ddot x_3+k(2x_3-x_2)=0.
+            \]
+        </div>
+
+        <h2 id="rolling">4. Rolling and constrained systems</h2>
+        <h3>Disk on a slope</h3>
+        <p>
+            The slope direction is \(\hat p=(2,-1)/\sqrt5\), and the disk
+            center is \(\mathbf c=r\hat n+x\hat p\). Rolling without slipping
+            gives \(\omega=\dot x/r\), so
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12\left(m+\frac Ir^2\right)\dot x^2,\qquad
+            V=mg\frac{2r-x}{\sqrt5},
+            \]
+            \[
+            \ddot x=\frac{mg}{\sqrt5(m+I/r^2)}.
+            \]
+        </div>
+
+        <h3>Cart and pendulum</h3>
+        <p>
+            For cart displacement \(x\) and pendulum angle \(\theta\), the
+            coupled energies are
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12(M+m)\dot x^2-ml\cos\theta\,\dot x\dot\theta+
+            \frac12ml^2\dot\theta^2,
+            \]
+            \[
+            V=mg\left(\frac12-l\cos\theta\right)+\frac12kx^2.
+            \]
+        </div>
+
+        <h3>Swinging Atwood machine</h3>
+        <p>
+            With hanging coordinate \(r\) and swing angle \(\theta\):
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12(M+m)\dot r^2+\frac12mr^2\dot\theta^2,
+            \qquad V=Mgr-mgr\cos\theta,
+            \]
+            \[
+            (M+m)\ddot r-mr\dot\theta^2+
+            g(M-m\cos\theta)=0,
+            \]
+            \[
+            mr^2\ddot\theta+2mr\dot r\dot\theta+
+            mgr\sin\theta=0.
+            \]
+        </div>
+
+        <h3>Rolling disk pendulum</h3>
+        <p>
+            The rolling disk pendulum has coordinates \(x,\theta_1,\theta_2\).
+            Its kinetic energy is the sum of translational and rotational
+            energies of the ring, inner disk, and pendulum masses:
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12M|\dot{\mathbf c}_M|^2+\frac12I_M\omega_M^2+
+            \frac12m_r|\dot{\mathbf c}_r|^2+\frac12I_r\omega_r^2+
+            \frac12m_p\left(|\dot{\mathbf c}_{p+}|^2+
+            |\dot{\mathbf c}_{p-}|^2\right).
+            \]
+        </div>
+        <p>
+            Each spring contributes
+            \(V_s=\frac12k(|\mathbf b-\mathbf a|-l_0)^2\), and gravity
+            contributes \(mgy\). The simulator differentiates this complete
+            expression symbolically rather than displaying its very long
+            expanded equations.
+        </p>
+
+        <h2 id="advanced">5. Rotational systems</h2>
+        <h3>Symmetric spinning top</h3>
+        <p>
+            The top uses Euler angles \(\theta,\phi,\psi\). Here \(\theta\) is
+            nutation, \(\phi\) is precession, and \(\psi\) is spin. With
+            transverse inertia \(I_1\) and axial inertia \(I_3\):
+        </p>
+        <div class="equation">
+            \[
+            T=\frac12I_1\left(\dot\theta^2+
+            \sin^2\theta\,\dot\phi^2\right)
+            +\frac12I_3\left(\dot\psi+\dot\phi\cos\theta\right)^2,
+            \]
+            \[
+            V=mgl\cos\theta.
+            \]
+        </div>
+        <p>
+            Both \(\phi\) and \(\psi\) are absent from \(L\), so their momenta
+            are conserved:
+        </p>
+        <div class="equation">
+            \[
+            p_\psi=I_3(\dot\psi+\dot\phi\cos\theta),
+            \]
+            \[
+            p_\phi=I_1\sin^2\theta\,\dot\phi+
+            I_3\cos\theta(\dot\psi+\dot\phi\cos\theta).
+            \]
+        </div>
+
+        <h2 id="numerics">6. Numerical integration and conservation</h2>
+        <p>
+            The simulation advances time in small substeps. For state
+            \(z=(q,\dot q)\), it evaluates
+        </p>
+        <div class="equation">
+            \[
+            \dot z=f(z,t)
+            \]
+        </div>
+        <p>
+            with classical fourth-order Runge-Kutta:
+        </p>
+        <div class="equation">
+            \[
+            z_{n+1}=z_n+\frac16(k_1+2k_2+2k_3+k_4),
+            \]
+            \[
+            k_1=hf(z_n,t_n),\quad
+            k_2=hf(z_n+k_1/2,t_n+h/2),
+            \]
+            \[
+            k_3=hf(z_n+k_2/2,t_n+h/2),\quad
+            k_4=hf(z_n+k_3,t_n+h).
+            \]
+        </div>
+        <p>
+            For time-independent systems, total energy \(E=T+V\) should remain
+            nearly constant; small changes come from numerical integration.
+            Cyclic coordinates provide additional conserved momenta, while the
+            explicitly time-dependent Kapitza pendulum does not conserve energy.
+        </p>
+
+        <a class="back-link" href="../">← Back to Mechanics</a>
+    </main>
+</body>
+
+</html>
