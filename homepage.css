@@ -16,10 +16,26 @@
 }
 
 .mechmath-link {
+    position: static;
+    transform: none;
+    padding: 0.25em 0.5em;
+    border: 2px solid black;
+    color: inherit;
+    background-color: white;
+    text-decoration: none;
+}
+
+.learning-links {
     position: fixed;
     bottom: 0.5em;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    gap: 0.5em;
+    white-space: nowrap;
+}
+
+.maths-link {
     padding: 0.25em 0.5em;
     border: 2px solid black;
     color: inherit;
@@ -122,5 +138,14 @@
     .site-attribution {
         bottom: 3em;
         font-size: 0.8em;
+    }
+
+    .learning-links {
+        bottom: 0.5em;
+        max-width: calc(100vw - 1em);
+        flex-wrap: wrap;
+        justify-content: center;
+        white-space: normal;
+        font-size: 0.75em;
     }
 }
