@@ -113,6 +113,7 @@
             ctx.rotate(0.77 * Math.PI)
 
             ctx.rotate(x / r_o + (theta1 + x / r_o) * (r_i - r) / r);
+            drawTrailPoint("green");
             drawDisk(r, "#CCC");
             moveLabel("r", r / 2, -10);
             ctx.rotate(-x / r_o - (theta1 + x / r_o) * (r_i - r) / r);

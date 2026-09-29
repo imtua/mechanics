@@ -24,6 +24,7 @@
             resetCanvas();
             ctx.translate(-0.5 * scale, -0.5 * scale);
             ctx.translate(0, (2 - r) * scale);
+            drawTrailPoint("green");
             drawMass();
             moveLabel("M", -25, 25);
             ctx.rotate(Math.PI);
