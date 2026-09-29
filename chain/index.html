@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Coupled Spring-Mass Chain";
+        mechasimulator.symbols.names = ["x1", "x2", "x3"];
+        mechasimulator.symbols.latex = ["x_1", "x_2", "x_3"];
+        mechasimulator.metricLabels = ["x₁", "x₂", "x₃"];
+        mechasimulator.metricUnits = ["m", "m", "m"];
+
+        function drawSpringSegment(x1, x2, y) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y);
+            ctx.lineTo(x2, y);
+            ctx.lineWidth = 3;
+            ctx.stroke();
+        }
+
+        function drawSystem(params) {
+            const scale = 70;
+            const y = 0;
+            const positions = [
+                -2 * scale + params[0] * scale,
+                params[1] * scale,
+                2 * scale + params[2] * scale
+            ];
+            const wallLeft = -4 * scale;
+            const wallRight = 4 * scale;
+
+            resetCanvas();
+            ctx.translate(0, -40);
+            ctx.setLineDash([]);
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(wallLeft, y - 55);
+            ctx.lineTo(wallLeft, y + 55);
+            ctx.moveTo(wallRight, y - 55);
+            ctx.lineTo(wallRight, y + 55);
+            ctx.stroke();
+
+            drawSpringSegment(wallLeft, positions[0], y);
+            drawSpringSegment(positions[0], positions[1], y);
+            drawSpringSegment(positions[1], positions[2], y);
+            drawSpringSegment(positions[2], wallRight, y);
+
+            ctx.translate(positions[0], y);
+            drawTrailPoint("blue");
+            drawMass();
+            moveLabel("x1", -20, -25);
+            ctx.translate(positions[1] - positions[0], 0);
+            drawTrailPoint("green");
+            drawMass();
+            moveLabel("x2", -20, -25);
+            ctx.translate(positions[2] - positions[1], 0);
+            drawTrailPoint("red");
+            drawMass();
+            moveLabel("x3", -20, -25);
+        }
+    </script>
+</body>
+
+</html>

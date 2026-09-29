@@ -312,7 +312,12 @@ function drawTrailPoint(color = "blue") {
     ctx.resetTransform();
     ctx.lineWidth = 2.5;
     ctx.setLineDash([]);
-    const trailColor = color === "green" ? [45, 180, 85] : [50, 85, 255];
+    const trailColors = {
+        blue: [50, 85, 255],
+        green: [45, 180, 85],
+        red: [220, 65, 65]
+    };
+    const trailColor = trailColors[color] || trailColors.blue;
     for (let i = 1; i < points.length; i++) {
         const age = now - points[i].time;
         const opacity = Math.max(0, 1 - age / trailDuration);
