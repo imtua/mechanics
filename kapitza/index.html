@@ -23,7 +23,7 @@
             const scale = 150;
             const pivotY = constants.a * Math.cos(constants.omega * time) * scale;
             const bobX = Math.sin(theta) * constants.l * scale;
-            const bobY = pivotY - Math.cos(theta) * constants.l * scale;
+            const bobY = -Math.cos(theta) * constants.l * scale;
 
             resetCanvas();
             ctx.translate(0, -20);
@@ -36,10 +36,10 @@
             ctx.stroke();
             ctx.translate(0, pivotY);
             drawHinge();
-            ctx.rotate(-theta);
+            ctx.rotate(theta - Math.PI);
             drawBar(constants.l * scale);
-            ctx.rotate(theta);
-            ctx.translate(bobX, bobY - pivotY);
+            ctx.rotate(Math.PI - theta);
+            ctx.translate(bobX, bobY);
             drawTrailPoint();
             drawMass();
             moveLabel("m", 20, 0);
