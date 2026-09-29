@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    <link rel="stylesheet" href="../style.css?v=mobile">
+    <link rel="icon" type="image/svg+xml" href="../simulation.svg" />
+</head>
+
+<body>
+    <script src="../mechsimulator.js"></script>
+    <script>
+        mechasimulator.title = "Symmetric Spinning Top";
+        mechasimulator.symbols.names = ["theta", "phi", "psi"];
+        mechasimulator.symbols.latex = ["\\theta", "\\phi", "\\psi"];
+        mechasimulator.metricLabels = ["θ", "φ", "ψ"];
+        mechasimulator.metricVelocityLabels = ["dθ/dt", "dφ/dt", "dψ/dt"];
+
+        mechasimulator.conservedQuantity = function (velocities, constants, params) {
+            const theta = params[0];
+            const phiRate = velocities[1];
+            const psiRate = velocities[2];
+            const spinRate = psiRate + Math.cos(theta) * phiRate;
+            const pPsi = constants.I3 * spinRate;
+            const pPhi = constants.I1 * Math.sin(theta) ** 2 * phiRate +
+                constants.I3 * Math.cos(theta) * spinRate;
+            return [
+                [pPhi, "Precession momentum pφ"],
+                [pPsi, "Spin momentum pψ"]
+            ];
+        };
+
+        function drawTop(centerX, centerY, theta, phi, psi, time) {
+            const scale = 130;
+            const bobX = scale * Math.sin(theta);
+            const bobY = -scale * Math.cos(theta);
+            const spin = psi + time * 0.8;
+
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 3;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(0, -scale);
+            ctx.lineTo(0, scale);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            ctx.rotate(-phi);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, scale);
+            ctx.stroke();
+            ctx.rotate(phi);
+            ctx.translate(bobX, bobY);
+            ctx.rotate(spin);
+            drawTrailPoint();
+            ctx.fillStyle = "#222";
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 18, 10, 0, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSystem(params, time) {
+            resetCanvas();
+            ctx.resetTransform();
+            const centerY = canvas.height / 2;
+            ctx.fillStyle = "#000";
+            ctx.font = "16px ui-monospace, monospace";
+            ctx.textAlign = "center";
+            ctx.fillText("Precession and nutation", canvas.width / 3, centerY - 170);
+            ctx.fillText("Top view of precession", canvas.width * 2 / 3, centerY - 170);
+            drawTop(canvas.width / 3, centerY, params[0], params[1], params[2], time);
+
+            ctx.save();
+            ctx.translate(canvas.width * 2 / 3, centerY);
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(0, 0, 105, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.rotate(params[1]);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(105 * Math.sin(params[0]), -105 * Math.cos(params[0]));
+            ctx.stroke();
+            ctx.restore();
+        }
+    </script>
+</body>
+
+</html>

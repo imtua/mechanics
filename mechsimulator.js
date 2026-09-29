@@ -277,10 +277,13 @@ function setMetrics(time, angles, velocities) {
             conservedLabel.textContent = "";
             return;
         }
-        const [value, label] = mechasimulator.conservedQuantity(
+        const quantities = mechasimulator.conservedQuantity(
             velocities, constants, params
         );
-        conservedLabel.textContent = `${label}: ${value.toFixed(3)}`;
+        const entries = Array.isArray(quantities[0]) ? quantities : [quantities];
+        conservedLabel.innerHTML = entries
+            .map(([value, label]) => `${label}: ${value.toFixed(3)}`)
+            .join("<br>");
     }
 }
 
