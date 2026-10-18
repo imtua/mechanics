@@ -42,4 +42,4 @@ The system code is extremely intuitive to the point where even non-programmers s
 - <a href="https://mechanics.help/maths/"><b>Mathematical Equations</b></a>
 - <a href="https://github.com/imtua/mechanics/blob/main/mechmaths/README.md"><b>MechMaths Operations</b></a>
 
-Simulation pages include a Parameters panel with curated physical inputs such as mass, gravity, length, radius, and spring stiffness. Every input has a model-specific safe range; changing a value clamps it to that range, rebuilds the equations, and restarts the simulation from its initial state.
+Simulation pages include a Parameters panel with curated physical inputs such as mass, gravity, length, radius, and spring stiffness. Every input has a model-specific safe range; changing a value clamps it to that range, rebuilds the equations, and restarts the simulation from its initial state.# mechsim
